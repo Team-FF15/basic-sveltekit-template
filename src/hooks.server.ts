@@ -3,7 +3,7 @@ import { i18n } from '@/i18n';
 import { sequence } from '@sveltejs/kit/hooks';
 import { lucia } from '@/server/auth';
 import { securityHeaders, rules } from '@islamzaoui/securekit';
-import { ORIGIN } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 const handleParaglide: Handle = i18n.handle();
 
@@ -38,7 +38,7 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 const handleSecurityHeaders = securityHeaders({
 	headers: {
 		...rules.defaultHeaders,
-		'Access-Control-Allow-Origin': ORIGIN
+		'Access-Control-Allow-Origin': env.ORIGIN
 	}
 }).handle;
 
