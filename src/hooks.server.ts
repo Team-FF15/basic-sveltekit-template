@@ -2,7 +2,6 @@ import type { Handle } from '@sveltejs/kit';
 import { i18n } from '@/i18n';
 import { sequence } from '@sveltejs/kit/hooks';
 import { lucia } from '@/server/auth';
-import { dev } from '$app/environment';
 import { securityHeaders, rules } from '@islamzaoui/securekit';
 import { ORIGIN } from '$env/static/private';
 
@@ -36,11 +35,10 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-const origin = dev ? 'http://localhost:5173' : ORIGIN;
 const handleSecurityHeaders = securityHeaders({
 	headers: {
 		...rules.defaultHeaders,
-		'Access-Control-Allow-Origin': origin
+		'Access-Control-Allow-Origin': ORIGIN
 	}
 }).handle;
 
